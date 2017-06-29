@@ -16,14 +16,14 @@ class AppRoute extends Route {
      *
      * @var string
      */
-    private $nickname;
+    public $nickname;
 
     /**
      * The callback to execute when matched to a URI
      *
      * @var callable
      */
-    private $callback;
+    public $callback;
 
     /**
      * Constructs a Route representation of a app defined route
@@ -37,4 +37,5 @@ class AppRoute extends Route {
         $this->uri = $args["URI"];
         $this->callback = $args["CALLBACK"];
     }
+
 }

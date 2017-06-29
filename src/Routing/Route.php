@@ -15,14 +15,14 @@ abstract class Route {
      *
      * @var string
      */
-    private $method;
+    public $method;
 
     /**
      * The URI requested
      *
      * @var string
      */
-    private $uri;
+    public $uri;
 
     /**
      * Builds the Route representation from a $source
@@ -30,20 +30,4 @@ abstract class Route {
      * @param array $source
      */
     abstract function __construct(array $source = []);
-
-    /**
-     * Attribute accessor
-     *
-     * @param string $attribute
-     * @return string
-     */
-    public function __get($attribute)
-    {
-        return $this->{$attribute};
-    }
-
-    public function __set($attribute, $value)
-    {
-        return $this->{$attribute} = $value;
-    }
 }

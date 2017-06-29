@@ -39,6 +39,7 @@ class Router {
     public static function resolve(Route $route)
     {
         include_once '/home/marcos/dev/mine/dedsimple/config/routes.php';
+        dd(self::$routes);
     }
 
     /**
@@ -64,7 +65,6 @@ class Router {
 
             $route = new AppRoute($source);
             self::addRoute($route);
-            dd(self::$routes);
             return $route;
         }
 
