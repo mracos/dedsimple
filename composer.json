@@ -14,5 +14,19 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^6.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dedsimple\\": "src"
+        },
+        "files": ["src/Util.php"]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Dedsimple\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit"
     }
 }
