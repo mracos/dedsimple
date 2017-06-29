@@ -19,8 +19,15 @@ class AppRoute extends Route {
     private $nickname;
 
     /**
-     * Constructs a Route representation from the
-     * Router::METHOD call
+     * The callback to execute when matched to a URI
+     *
+     * @var callable
+     */
+    private $callback;
+
+    /**
+     * Constructs a Route representation of a app defined route
+     * from the Router::METHOD call
      *
      * @param array $args
      */
@@ -28,5 +35,6 @@ class AppRoute extends Route {
     {
         $this->method = $args["METHOD"];
         $this->uri = $args["URI"];
+        $this->callback = $args["CALLBACK"];
     }
 }

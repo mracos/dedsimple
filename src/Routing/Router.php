@@ -19,7 +19,7 @@ class Router {
      * @var array
      * @access public
      */
-    static $routes;
+    static $routes = [];
 
     /**
      * All the HTTP verbs supported
@@ -49,7 +49,7 @@ class Router {
      * @param array $args
      * @return Dedsimple\Routing\Route;
      */
-    public static function __callStatic(string $name, array $args)
+    public static function __callStatic(string $name, array $args) :Route
     {
         if (self::isMethod($name)) {
             $method = mb_strtoupper($name);
@@ -63,7 +63,9 @@ class Router {
             ];
 
             $route = new AppRoute($source);
-            dd($route);
+            self::addRoute($route);
+            dd(self::$routes);
+            return $route;
         }
 
     }
@@ -77,5 +79,24 @@ class Router {
     private static function isMethod(string $name) :bool
     {
         return in_array(mb_strtoupper($name), self::METHODS);
+    }
+
+    /**
+     * Add the Route to the self::$routes mapping
+     *
+     * @param Route $route
+     * @return void
+     */
+    private static function addRoute(Route $route)
+    {
+        if (!array_key_exists($route->method, self::$routes)) {
+            $routes =& self::$routes;
+            $routes[$route->method] = [];
+        }
+
+        array_push(
+            self::$routes[$route->method],
+            [$route->uri => $route]
+        );
     }
 }
