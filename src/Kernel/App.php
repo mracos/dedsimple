@@ -2,7 +2,7 @@
 
 namespace Dedsimple\Kernel;
 
-use Dedsimple\Routing\Route;
+use Dedsimple\Routing\RequestRoute;
 use Dedsimple\Routing\Router;
 
 /**
@@ -20,7 +20,7 @@ class App {
      */
     public function run($opts = [])
     {
-        $route = new Route();
+        $route = new RequestRoute();
         Router::resolve($route);
     }
 }

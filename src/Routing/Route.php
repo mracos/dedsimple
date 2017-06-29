@@ -2,18 +2,21 @@
 
 namespace Dedsimple\Routing;
 
+
 /**
- * Representation of the requested route
+ * Base class for the Route representation
  *
  * @author Marcos Ferreira <merkkp [at] gmail [dot] com>
  */
-class Route {
+abstract class Route {
+
     /**
      * HTTP verb of the requested URI
      *
      * @var string
      */
     private $method;
+
     /**
      * The URI requested
      *
@@ -22,26 +25,25 @@ class Route {
     private $uri;
 
     /**
-     * @param array $server
+     * Builds the Route representation from a $source
+     *
+     * @param array $source
      */
-    public function __construct(array $server = [])
-    {
-        if (empty($server))
-            $server = $_SERVER;
-
-        $this->method = $server["REQUEST_METHOD"];
-        $this->uri = $server["PATH_INFO"] ?? '/';
-    }
+    abstract function __construct(array $source = []);
 
     /**
      * Attribute accessor
      *
      * @param string $attribute
-     * @return mixed
+     * @return string
      */
-    public function __get(string $attribute)
+    public function __get(string $attribute) :string
     {
         return $this->{$attribute};
     }
 
+    public function __set(string $attribute, string $value)
+    {
+        return $this->{$attribute} = $value;
+    }
 }
