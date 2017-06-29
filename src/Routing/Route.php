@@ -37,12 +37,12 @@ abstract class Route {
      * @param string $attribute
      * @return string
      */
-    public function __get(string $attribute) :string
+    public function __get($attribute)
     {
         return $this->{$attribute};
     }
 
-    public function __set(string $attribute, string $value)
+    public function __set($attribute, $value)
     {
         return $this->{$attribute} = $value;
     }

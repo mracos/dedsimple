@@ -89,14 +89,14 @@ class Router {
      */
     private static function addRoute(Route $route)
     {
-        if (!array_key_exists($route->method, self::$routes)) {
-            $routes =& self::$routes;
+        $routes =& self::$routes;
+
+        if (!array_key_exists($route->method, $routes)) {
             $routes[$route->method] = [];
         }
 
-        array_push(
-            self::$routes[$route->method],
-            [$route->uri => $route]
-        );
+        if (!array_key_exists($route->uri, $routes[$route->method])) {
+            $routes[$route->method][$route->uri] = $route;
+        }
     }
 }
