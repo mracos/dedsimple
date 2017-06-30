@@ -4,9 +4,9 @@ namespace Dedsimple\Tests\Routing;
 
 use PHPUnit\Framework\TestCase;
 
-use Dedsimple\Routing\Route;
+use Dedsimple\Routing\RequestRoute;
 
-class RouteTest extends TestCase {
+class RequestRouteTest extends TestCase {
 
     private function serverGetRoot()
     {
@@ -23,22 +23,22 @@ class RouteTest extends TestCase {
 
     public function testMethodIsGet()
     {
-        $mock_server = $this->serverGetRoot();
-        $route = new Route($mock_server);
+        $mockServer = $this->serverGetRoot();
+        $route = new RequestRoute($mockServer);
         $this->assertEquals("GET", $route->method);
     }
 
     public function testUriIsRoot()
     {
-        $mock_server = $this->serverGetRoot();
-        $route = new Route($mock_server);
+        $mockServer = $this->serverGetRoot();
+        $route = new RequestRoute($mockServer);
         $this->assertEquals("/", $route->uri);
     }
 
     public function testUriIsAsd()
     {
-        $mock_server = $this->serverGetAsdPath();
-        $route = new Route($mock_server);
+        $mockServer = $this->serverGetAsdPath();
+        $route = new RequestRoute($mockServer);
         $this->assertEquals("/asd", $route->uri);
     }
 }
