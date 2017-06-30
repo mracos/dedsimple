@@ -9,21 +9,6 @@ use Dedsimple\Routing\AppRoute;
 
 class RouterTest extends TestCase {
 
-    public function testAddRoute()
-    {
-        $mockAppRoute = new AppRoute([
-            "METHOD" => "GET",
-            "URI" => "/",
-            "CALLBACK" => function() { return 'ok'; }
-        ]);
-
-        Router::addRoute($mockAppRoute);
-        $this->assertInstanceOf(
-            AppRoute::class,
-            Router::$routes["GET"]["/"]
-        );
-    }
-
     public function testDefineInvalidMethodRoute()
     {
         $this->markTestIncomplete();
@@ -39,6 +24,18 @@ class RouterTest extends TestCase {
 
         $this->assertInstanceOf(AppRoute::class, $route);
         $this->assertEquals("root", call_user_func($route->callback));
+    }
+
+    public function testDefineMultipleRoutes()
+    {
+        Router::GET('/', function() { return 'get/'; });
+        Router::GET('/asd', function() { return 'get/asd'; });
+        Router::POST('/', function() { return 'post/'; });
+        Router::POST('/asd', function() { return 'post/asd'; });
+
+        $this->assertCount(2, Router::$routes);
+        $this->assertCount(2, Router::$routes["GET"]);
+        $this->assertCount(2, Router::$routes["POST"]);
     }
 
     public function testResolveExistentRoute()

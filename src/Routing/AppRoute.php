@@ -33,9 +33,11 @@ class AppRoute extends Route {
      */
     public function __construct(array $args = [])
     {
-        $this->method = $args["METHOD"];
-        $this->uri = $args["URI"];
-        $this->callback = $args["CALLBACK"];
+        if (!empty($args)) {
+            $this->method = $args["METHOD"];
+            $this->uri = $args["URI"];
+            $this->callback = $args["CALLBACK"];
+        }
     }
 
 }

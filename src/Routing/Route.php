@@ -30,4 +30,16 @@ abstract class Route {
      * @param array $source
      */
     abstract function __construct(array $source = []);
+
+    /**
+     * Check if is an empty Route
+     *
+     * @return bool
+     */
+    public function isEmpty() :bool
+    {
+        return (
+            !isset($this->method) && !isset($this->uri)
+        );
+    }
 }

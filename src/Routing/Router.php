@@ -66,8 +66,9 @@ class Router {
             $route = new AppRoute($source);
             self::addRoute($route);
             return $route;
+        } else {
+            return new AppRoute();
         }
-
     }
 
     /**
@@ -89,14 +90,16 @@ class Router {
      */
     private static function addRoute(Route $route)
     {
-        $routes =& self::$routes;
+        if (!$route->isEmpty()) {
+            $routes =& self::$routes;
 
-        if (!array_key_exists($route->method, $routes)) {
-            $routes[$route->method] = [];
-        }
+            if (!array_key_exists($route->method, $routes)) {
+                $routes[$route->method] = [];
+            }
 
-        if (!array_key_exists($route->uri, $routes[$route->method])) {
-            $routes[$route->method][$route->uri] = $route;
+            if (!array_key_exists($route->uri, $routes[$route->method])) {
+                $routes[$route->method][$route->uri] = $route;
+            }
         }
     }
 }
