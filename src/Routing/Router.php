@@ -4,6 +4,8 @@ namespace Dedsimple\Routing;
 
 use Dedsimple\Routing\Route;
 use Dedsimple\Routing\AppRoute;
+use Dedsimple\Kernel\Response;
+
 
 /**
  * Deal with all the things related to routing and resolving
@@ -34,12 +36,15 @@ class Router {
      * Resolve the requested route
      *
      * @param Route $route
-     * @return void
+     * @return Response
      */
-    public static function resolve(Route $route)
+    public static function resolve(Route $route) :Response
     {
         include_once '/home/marcos/dev/mine/dedsimple/config/routes.php';
-        dd(self::$routes);
+
+        $appRoute = self::$routes[$route->method][$route->uri];
+        $response = new Response($appRoute);
+        return $response;
     }
 
     /**

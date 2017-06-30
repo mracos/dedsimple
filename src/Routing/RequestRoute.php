@@ -14,7 +14,6 @@ class RequestRoute extends Route {
     /**
      * Constructs a Route representation from the $_SERVER
      *
-     *
      * @param array global $server
      */
     public function __construct(array $server = [])

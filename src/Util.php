@@ -6,7 +6,7 @@
  */
 
 /**
- * "pretty" var_dump
+ * "pretty" var_dump && die
  *
  * @param mixed $dumped
  * @global
@@ -17,4 +17,5 @@ function dd($dumped)
     echo "<pre>";
     var_dump($dumped);
     echo "</pre>";
+    die();
 }

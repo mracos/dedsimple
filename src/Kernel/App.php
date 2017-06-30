@@ -21,6 +21,7 @@ class App {
     public function run($opts = [])
     {
         $route = new RequestRoute();
-        Router::resolve($route);
+        $response = Router::resolve($route);
+        $response->send();
     }
 }
