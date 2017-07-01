@@ -29,14 +29,14 @@ class AppRoute extends Route {
      * Constructs a Route representation of a app defined route
      * from the Router::METHOD call
      *
-     * @param array $args
+     * @param array $source
      */
-    public function __construct(array $args = [])
+    public function __construct(array $source = [])
     {
-        if (!empty($args)) {
-            $this->method = $args["METHOD"];
-            $this->uri = $args["URI"];
-            $this->callback = $args["CALLBACK"];
+        if (!empty($source)) {
+            $this->method = $source["METHOD"];
+            $this->uri = $source["URI"];
+            $this->callback = $source["CALLBACK"];
         }
     }
 

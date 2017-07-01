@@ -19,3 +19,17 @@ function dd($dumped)
     echo "</pre>";
     die();
 }
+
+/**
+ * Get data from enviroments variables
+ *
+ * @param string $key
+ * @param string $default
+ * @global
+ * @return mixed
+ */
+function env(string $key, string $default = '')
+{
+    $env = getenv($key);
+    return empty(getenv($key)) ? $default : getenv($key);
+}
