@@ -58,7 +58,7 @@ class Router {
     public static function __callStatic(string $name, array $args) :Route
     {
         if (self::isMethod($name)) {
-            $method = mb_strtoupper($name);
+            $method = self::normalizeMethodName($name);
             $uri = $args[0];
             $callback = $args[1];
 
@@ -84,7 +84,18 @@ class Router {
      */
     private static function isMethod(string $name) :bool
     {
-        return in_array(mb_strtoupper($name), self::METHODS);
+        return in_array(self::normalizeMethodName($name), self::METHODS);
+    }
+
+    /**
+     * Returns the normalized (UPPERCASE) method name
+     *
+     * @param string $method
+     * @return string
+     */
+    private static function normalizeMethodName(string $methodName) :string
+    {
+        return mb_strtoupper($methodName);
     }
 
     /**
