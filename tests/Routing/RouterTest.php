@@ -5,7 +5,7 @@ namespace Dedsimple\Tests\Routing;
 use PHPUnit\Framework\TestCase;
 
 use Dedsimple\Routing\Router;
-use Dedsimple\Routing\AppRoute;
+use Dedsimple\Routing\Route;
 
 class RouterTest extends TestCase {
 
@@ -22,7 +22,7 @@ class RouterTest extends TestCase {
         $this->assertArrayHasKey("GET", Router::$routes);
         $this->assertArrayHasKey("/", Router::$routes["GET"]);
 
-        $this->assertInstanceOf(AppRoute::class, $route);
+        $this->assertInstanceOf(Route::class, $route);
         $this->assertEquals("root", call_user_func($route->callback));
     }
 

@@ -3,7 +3,6 @@
 namespace Dedsimple\Routing;
 
 use Dedsimple\Routing\Route;
-use Dedsimple\Routing\AppRoute;
 use Dedsimple\Kernel\Response;
 
 
@@ -40,10 +39,8 @@ class Router {
      */
     public static function resolve(Route $route) :Response
     {
-        include_once '/home/marcos/dev/mine/dedsimple/config/routes.php';
-
-        $appRoute = self::$routes[$route->method][$route->uri];
-        $response = new Response($appRoute);
+        $route = self::$routes[$route->method][$route->uri];
+        $response = new Response($route);
         return $response;
     }
 
@@ -63,16 +60,17 @@ class Router {
             $callback = $args[1];
 
             $source = [
-                "METHOD" => $method,
-                "URI" => $uri,
-                "CALLBACK" => $callback
+                "REQUEST_METHOD" => $method,
+                "PATH_INFO" => $uri,
             ];
 
-            $route = new AppRoute($source);
+            $route = new Route($source);
+            $route->callback = $callback;
+
             self::addRoute($route);
             return $route;
         } else {
-            return new AppRoute();
+            return new Route();
         }
     }
 

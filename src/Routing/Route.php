@@ -4,11 +4,11 @@ namespace Dedsimple\Routing;
 
 
 /**
- * Base class for the Route representation
+ * Route representation
  *
  * @author Marcos Ferreira <merkkp [at] gmail [dot] com>
  */
-abstract class Route {
+class Route {
 
     /**
      * HTTP verb of the requested URI
@@ -25,11 +25,33 @@ abstract class Route {
     public $uri;
 
     /**
+     * The nickname for the route
+     *
+     * @var string
+     */
+    public $nickname;
+
+    /**
+     * The callback to execute when matched to a URI
+     *
+     * @var callable
+     */
+    public $callback;
+
+    /**
      * Builds the Route representation from a $source
      *
      * @param array $source
+     * If empty, by default is used the $_SERVER superglobal
      */
-    abstract function __construct(array $source = []);
+    public function __construct(array $source = [])
+    {
+        if (empty($source))
+            $source = $_SERVER;
+
+        $this->method = $source["REQUEST_METHOD"];
+        $this->uri = $source["PATH_INFO"] ?? '/';
+    }
 
     /**
      * Check if is an empty Route

@@ -2,7 +2,7 @@
 
 namespace Dedsimple;
 
-use Dedsimple\Routing\RequestRoute;
+use Dedsimple\Routing\Route;
 use Dedsimple\Routing\Router;
 
 /**
@@ -41,7 +41,7 @@ class App {
         $this->parseOpts($opts);
         $this->setDebugOptions();
 
-        $route = new RequestRoute();
+        $route = new Route();
         $response = Router::resolve($route);
 
         $response->send();
