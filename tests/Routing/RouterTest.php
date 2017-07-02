@@ -9,12 +9,15 @@ use Dedsimple\Routing\Route;
 
 class RouterTest extends TestCase {
 
-    public function testDefineInvalidMethodRoute()
+    /**
+     * @expectedException Dedsimple\Exceptions\Routing\InvalidMethodName
+     */
+    public function testDefineInvalidMethodRouteThrowsException()
     {
-        $this->markTestIncomplete();
+        Router::INVALID('/', function() { return 'invalid'; });
     }
 
-    public function testDefineGetRoute()
+    public function testDefineGetRootRoute()
     {
         Router::GET('/', function() { return 'root'; });
         $route = Router::$routes["GET"]["/"];

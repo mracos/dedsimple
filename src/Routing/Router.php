@@ -4,6 +4,7 @@ namespace Dedsimple\Routing;
 
 use Dedsimple\Routing\Route;
 use Dedsimple\Kernel\Response;
+use Dedsimple\Exceptions\Routing\InvalidMethodName;
 
 
 /**
@@ -54,24 +55,23 @@ class Router {
      */
     public static function __callStatic(string $name, array $args) :Route
     {
-        if (self::isMethod($name)) {
-            $method = self::normalizeMethodName($name);
-            $uri = $args[0];
-            $callback = $args[1];
+        if (!self::isMethod($name))
+            throw new InvalidMethodName;
 
-            $source = [
-                "REQUEST_METHOD" => $method,
-                "PATH_INFO" => $uri,
-            ];
+        $method = self::normalizeMethodName($name);
+        $uri = $args[0];
+        $callback = $args[1];
 
-            $route = new Route($source);
-            $route->callback = $callback;
+        $source = [
+            "REQUEST_METHOD" => $method,
+            "PATH_INFO" => $uri,
+        ];
 
-            self::addRoute($route);
-            return $route;
-        } else {
-            return new Route();
-        }
+        $route = new Route($source);
+        $route->callback = $callback;
+
+        self::addRoute($route);
+        return $route;
     }
 
     /**
