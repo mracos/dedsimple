@@ -21,7 +21,7 @@ function dd($dumped)
 }
 
 /**
- * Get data from enviroments variables
+ * Get data from environments variables
  *
  * @param string $key
  * @param string $default

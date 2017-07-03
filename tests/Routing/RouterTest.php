@@ -10,6 +10,7 @@ use Dedsimple\Routing\Route;
 class RouterTest extends TestCase {
 
     /**
+     * @covers Router::_callStatic
      * @expectedException Dedsimple\Exceptions\Routing\InvalidMethodName
      */
     public function testDefineInvalidMethodRouteThrowsException()
@@ -17,6 +18,9 @@ class RouterTest extends TestCase {
         Router::INVALID('/', function() { return 'invalid'; });
     }
 
+    /**
+     * @covers Router::_callStatic
+     */
     public function testDefineGetRootRoute()
     {
         Router::GET('/', function() { return 'root'; });
@@ -29,6 +33,9 @@ class RouterTest extends TestCase {
         $this->assertEquals("root", call_user_func($route->callback));
     }
 
+    /**
+     * @covers Router::_callStatic
+     */
     public function testDefineMultipleRoutes()
     {
         Router::GET('/', function() { return 'get/'; });

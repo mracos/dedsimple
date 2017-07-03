@@ -40,24 +40,36 @@ class RouteTest extends TestCase {
     }
 
 
+    /**
+     * @covers Route::method
+     */
     public function testMethodIsGet()
     {
         $route = $this->getGetRoute();
         $this->assertEquals("GET", $route->method);
     }
 
+    /**
+     * @covers Route::uri
+     */
     public function testUriIsRoot()
     {
         $route = $this->getGetRootRoute();
         $this->assertEquals("/", $route->uri);
     }
 
+    /**
+     * @covers Route::uri
+     */
     public function testUriIsAsd()
     {
         $route = $this->getGetAsdRoute();
         $this->assertEquals("/asd", $route->uri);
     }
 
+    /**
+     * @covers Route::callback
+     */
     public function testCallback()
     {
         $mockRoute = $this->getGetRootRouteCallback();
