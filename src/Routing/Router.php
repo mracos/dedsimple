@@ -5,6 +5,7 @@ namespace Dedsimple\Routing;
 use Dedsimple\Routing\Route;
 use Dedsimple\Kernel\Response;
 use Dedsimple\Exceptions\Routing\InvalidMethodName;
+use Dedsimple\Exceptions\Routing\UndefinedRoute;
 
 
 /**
@@ -40,9 +41,12 @@ class Router {
      */
     public static function resolve(Route $route) :Response
     {
-        $route = self::$routes[$route->method][$route->uri];
-        $response = new Response($route);
-        return $response;
+        if (self::existsRoute($route)) {
+            $route = self::$routes[$route->method][$route->uri];
+            $response = new Response($route);
+            return $response;
+        } else
+            throw new UndefinedRoute;
     }
 
     /**
@@ -115,5 +119,19 @@ class Router {
                 $routes[$route->method][$route->uri] = $route;
             }
         }
+    }
+
+    /**
+     * Tests if a given route exists
+     *
+     * @param Route $route
+     * @return bool
+     */
+    public static function existsRoute(Route $route) :bool
+    {
+        return (
+            array_key_exists($route->method, self::$routes) &&
+            array_key_exists($route->uri, self::$routes[$route->method])
+        );
     }
 }

@@ -57,6 +57,15 @@ class RouterTest extends TestCase {
         $this->assertEquals('post/asd', Router::$routes['POST']['/asd']->callCallback());
     }
 
+    private function getAsdRoute()
+    {
+        return new Route([
+            'REQUEST_METHOD' => 'GET',
+            'PATH_INFO' => '/asd',
+        ]);
+
+    }
+
     /**
      * @covers Router::resolve
      * @uses Response::send
@@ -65,19 +74,21 @@ class RouterTest extends TestCase {
     {
         Router::GET('/asd', function() { return 'asd'; });
 
-        $route = new Route([
-            'REQUEST_METHOD' => 'GET',
-            'PATH_INFO' => '/asd',
-        ]);
-
+        $route = $this->getAsdRoute();
         $response = Router::resolve($route);
         $response->send();
         $this->expectOutputString('asd');
     }
 
+
+    /**
+     * @covers Router::resolve
+     * @expectedException Dedsimple\Exceptions\Routing\UndefinedRoute
+     */
     public function testResolveInexistentRoute()
     {
-        $this->markTestIncomplete();
+        $route = $this->getAsdRoute();
+        Router::resolve($route);
     }
 
 }
