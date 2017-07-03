@@ -64,4 +64,15 @@ class Route {
             !isset($this->method) && !isset($this->uri)
         );
     }
+
+    /**
+     * Call the Route callback
+     *
+     * @return string
+     */
+    public function callCallback() :string
+    {
+        if (is_callable($this->callback))
+            return call_user_func($this->callback);
+    }
 }

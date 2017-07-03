@@ -102,7 +102,6 @@ class App {
         $this->includeConfig('app');
         $this->includeConfig('db');
         $this->includeConfig('routes');
-        dd($this->opts);
     }
 
     /**

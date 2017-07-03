@@ -9,6 +9,11 @@ use Dedsimple\Routing\Route;
 
 class RouterTest extends TestCase {
 
+    public function tearDown()
+    {
+        Router::$routes = [];
+    }
+
     /**
      * @covers Router::_callStatic
      * @expectedException Dedsimple\Exceptions\Routing\InvalidMethodName
@@ -30,7 +35,7 @@ class RouterTest extends TestCase {
         $this->assertArrayHasKey("/", Router::$routes["GET"]);
 
         $this->assertInstanceOf(Route::class, $route);
-        $this->assertEquals("root", call_user_func($route->callback));
+        $this->assertEquals("root", $route->callCallback());
     }
 
     /**
@@ -43,14 +48,31 @@ class RouterTest extends TestCase {
         Router::POST('/', function() { return 'post/'; });
         Router::POST('/asd', function() { return 'post/asd'; });
 
-        $this->assertCount(2, Router::$routes);
-        $this->assertCount(2, Router::$routes["GET"]);
-        $this->assertCount(2, Router::$routes["POST"]);
+        $this->assertCount(2, Router::$routes['GET']);
+        $this->assertCount(2, Router::$routes['POST']);
+
+        $this->assertEquals('get/', Router::$routes['GET']['/']->callCallback());
+        $this->assertEquals('get/asd', Router::$routes['GET']['/asd']->callCallback());
+        $this->assertEquals('post/', Router::$routes['POST']['/']->callCallback());
+        $this->assertEquals('post/asd', Router::$routes['POST']['/asd']->callCallback());
     }
 
+    /**
+     * @covers Router::resolve
+     * @uses Response::send
+     */
     public function testResolveExistentRoute()
     {
-        $this->markTestIncomplete();
+        Router::GET('/asd', function() { return 'asd'; });
+
+        $route = new Route([
+            'REQUEST_METHOD' => 'GET',
+            'PATH_INFO' => '/asd',
+        ]);
+
+        $response = Router::resolve($route);
+        $response->send();
+        $this->expectOutputString('asd');
     }
 
     public function testResolveInexistentRoute()
