@@ -9,15 +9,17 @@
  * "pretty" var_dump && die
  *
  * @param mixed $dumped
+ * @param bool $die
  * @global
  * @return void
  */
-function dd($dumped)
+function dd($dumped, $die = true)
 {
     echo "<pre>";
     var_dump($dumped);
     echo "</pre>";
-    die();
+    if ($die)
+        die();
 }
 
 /**
