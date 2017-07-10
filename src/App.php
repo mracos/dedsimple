@@ -4,6 +4,7 @@ namespace Dedsimple;
 
 use Dedsimple\Routing\Route;
 use Dedsimple\Routing\Router;
+use Dedsimple\Kernel\Request;
 
 /**
  * Main app
@@ -41,9 +42,8 @@ class App {
         $this->parseOpts($opts);
         $this->setDebugOptions();
 
-        $route = new Route();
-        $response = Router::resolve($route);
-
+        $request = new Request();
+        $response = Router::resolve($request->route);
         $response->send();
     }
 
